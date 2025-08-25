@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="medical_image_tools_yzdn",
+    name="medical_image_processing_tools_yzdn",
     #version="0.1.0",
     author="Yazdan Salimi",
     author_email="salimiyazdan@gmail.com",
@@ -10,7 +10,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/YazdanSalimi/medical-image-processing-tools",
     packages=find_packages(),
-    py_modules=["dicom", "image", "radiomics", "image_regression_DL_inference"],
+    py_modules=["dicom", "image", "radiomics", "other"],
     install_requires=[
         "pandas",
         "tqdm",
