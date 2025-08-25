@@ -227,7 +227,10 @@ def image_match_eval(predicted,
         percent_bias_map_to_save_image = CopyInfo(reference_image, sitk.GetImageFromArray(percent_bias_map_to_save))
     else:
         percent_bias_map_to_save_image = "Not For Tensor and arrays"
-        
+
+            
+
+                            
     mean_error = np.mean(np.ma.masked_invalid(bias_map))
     absolute_mean_error = np.mean(np.abs(np.ma.masked_invalid(bias_map)))
     RMSE = np.sqrt(np.mean(mean_error**2))
@@ -239,6 +242,12 @@ def image_match_eval(predicted,
     else:
         SSIM = 0
         PSNR = 0
+
+    minimum_value = image_array.min()
+    maximum_value = image_array.max()
+    range_value = maximum_value - minimum_value
+    normalized_mean_abs_error = mean_absolute_error/range_value * 100      
+                            
     whole_image_df.at[0, "predicted_url"] = predicted if isinstance(predicted, str) else "Loaded from image"
     whole_image_df.at[0, "reference_url"] = reference if isinstance(reference, str) else "Loaded from image"
     whole_image_df.at[0, "predicted_name"] =  os.path.basename(predicted) if isinstance(predicted, str) else "Loaded from image"
@@ -251,6 +260,8 @@ def image_match_eval(predicted,
 
     whole_image_df.at[0, "mean_error"] = mean_error
     whole_image_df.at[0, "absolute_mean_error"] = absolute_mean_error
+    whole_image_df.at[0, "normalized_mean_abs_error"] = normalized_mean_abs_error
+
     whole_image_df.at[0, "RMSE"] = RMSE
     whole_image_df.at[0, "MSE"] = MSE
     whole_image_df.at[0, "re_percent"] = re_percent
